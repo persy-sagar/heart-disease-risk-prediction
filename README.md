@@ -38,6 +38,36 @@ Cardiovascular disease is one of the leading causes of death worldwide. Early ri
 **Low Risk Prediction**
 ![Low Risk](screenshots/low_risk_result.png)
 
+## For Non-Medical Readers (Feature Glossary)
+
+If you're not from a medical background, here's a plain-language explanation of the input features, using a systems-monitoring analogy:
+
+Think of the human heart like a server you're monitoring — each feature below is basically a sensor reading. The model looks for patterns across these readings that resemble "systems heading toward failure" versus "healthy systems."
+
+**Chest Pain Type** — Was there a warning sign, and what kind?
+- `TA` (Typical Angina) — a clear, expected warning signal, classic heart-related pain
+- `ATA` (Atypical Angina) — an ambiguous signal, might be heart-related, might not
+- `NAP` (Non-Anginal Pain) — pain exists, but unrelated to the heart (a false alarm, essentially)
+- `ASY` (Asymptomatic) — **no warning at all**, even though a problem may exist. This is the most dangerous case — like a server silently failing with no error logged until it crashes. It's the strongest risk indicator in the data.
+
+**Resting ECG** — A "log file" of the heart's electrical activity while idle (patient at rest)
+- `Normal` — no errors in the log
+- `ST` — a specific abnormal signal pattern detected
+- `LVH` — the heart's main pumping chamber has thickened over time, similar to a motor that's been overworked and physically strained from years of extra load (usually caused by long-term high blood pressure)
+
+**Exercise-Induced Angina** — Simple yes/no: did pain appear under physical load (like a stress test on a system)?
+
+**Oldpeak** — A numeric deviation score measuring how much the heart's electrical signal dips during exercise compared to resting baseline. Higher = bigger abnormal deviation under load, similar to a latency spike during load testing — a small spike is normal, a large one signals trouble.
+
+**ST Slope** — The shape/trend of that signal right after peak exertion
+- `Up` — signal recovers well (healthy pattern)
+- `Flat` — signal plateaus, doesn't recover well (mild warning sign)
+- `Down` — signal declines (strongest warning sign)
+
+**Fasting Blood Sugar** — A simple threshold flag: `1` if blood sugar is above 120 mg/dl (a diabetes-related risk marker), `0` if below.
+
+**In short:** this model performs anomaly detection on 11 "health metrics" to classify whether the overall pattern looks like a system trending toward failure (heart disease) or a healthy one — the same way a monitoring dashboard flags "this server is likely to crash soon" based on CPU, memory, and error-log trends.
+
 ## Tech Stack
 
 - **Language:** Python
