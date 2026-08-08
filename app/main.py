@@ -1,5 +1,4 @@
 from fastapi import FastAPI
-# pyrefly: ignore [missing-import]
 from pydantic import BaseModel
 import joblib
 import pandas as pd
